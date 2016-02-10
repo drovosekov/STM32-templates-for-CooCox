@@ -21,21 +21,26 @@ void delay_ms(u32 ms);
 #define PIN_CONFIGURATION(PIN_DESCRIPTION) GPIO_PIN_CONFIGURATION(PIN_DESCRIPTION) //задает конфигурацию конкретного вывода МК
 //формат конфигурацонной строки:
 //-----------------------------------------------------------------------------
-//#define NAME							название вывода в коде программы
-//		(A,B,C,D,E,F,G),				используемый порт IO
-//		(#0-15),						номер в порту
-//		(HIGH|							для выхода подтянутого к VCC
-//		 LOW),							для выхода подтянутого к GND
-//		(ANALOG|						аналоговый вход;
-//		 INPUT_FLOATING|				вход без подтяжки, болтающийся (англ. float) в воздухе
-//		 INPUT_PULL_DOWN|				вход с подтяжкой к земле (англ. Pull-down)
-//		 INPUT_PULL_UP|					вход с подтяжкой к питанию (англ. Pull-up)
-//		 GENERAL_OUTPUT_PUSH_PULL|		выход двумя состояниями (англ. Push-Pull — туда-сюда)
-//		 GENERAL_OUTPUT_OPEN_DRAIN|		выход с открытым стоком (англ. Open Drain)
-//		 ALTERNATE_OUTPUT_OPEN_DRAIN|	выход с открытым стоком для альтернативных функций (англ. Alternate Function).
+//#define NAME								название вывода в коде программы
+//		(A,B,C,D,E,F,G),					используемый порт IO
+//		(#0-15),							номер в порту
+//		(HIGH|			для корректной работы PIN_STATE() в случае входа подтянутого к GND (INPUT_PULL_DOWN); в случае сконфигурированного выхода через PIN_ON() установит VCC на выводе
+//		 LOW),			для корректной работы PIN_STATE() в случае входа подтянутого к VCC (INPUT_PULL_UP);   в случае сконфигурированного выхода через PIN_ON() установит GND на выводе
+//		(ANALOG|							аналоговый вход;
+//		 INPUT_FLOATING|					вход без подтяжки, болтающийся (англ. float) в воздухе
+//		 INPUT_PULL_DOWN|					вход с подтяжкой к земле (англ. Pull-down)
+//		 INPUT_PULL_UP|						вход с подтяжкой к питанию (англ. Pull-up)
+//		 GENERAL_OUTPUT_PUSH_PULL|			выход двумя состояниями (англ. Push-Pull — туда-сюда)
+//		 GENERAL_OUTPUT_OPEN_DRAIN|			выход с открытым стоком (англ. Open Drain)
+//		 ALTERNATE_OUTPUT_OPEN_DRAIN|		выход с открытым стоком для альтернативных функций (англ. Alternate Function).
 //Используется в случаях, когда выводом должна управлять периферия, прикрепленная к данному разряду порта (например, вывод Tx USART и т.п.)
-//		 ALTERNATE_OUTPUT_PUSH_PULL),	то же самое, но с двумя состояниями
-//		(SPEED_2MHZ|SPEED_10MHZ|SPEED_50MHZ)
+//		 ALTERNATE_OUTPUT_PUSH_PULL),		то же самое, но с двумя состояниями
+//		(SPEED_2MHZ|SPEED_10MHZ|SPEED_50MHZ)рабочая частота конфигурируемого вывода МК
+//пример вызова:
+//=================================================================================================================
+//#define AIR_FLOW_PWM	B, 13, HIGH, GENERAL_OUTPUT_PUSH_PULL, SPEED_10MHZ 
+//PIN_CONFIGURATION(AIR_FLOW_PWM);	
+
 #define PIN_ON(PIN_DESCRIPTION) GPIO_PIN_ON(PIN_DESCRIPTION)			//включить выход
 #define PIN_OFF(PIN_DESCRIPTION) GPIO_PIN_OFF(PIN_DESCRIPTION)			//отключить выход
 #define PIN_REVERSE(PIN_DESCRIPTION) GPIO_PIN_REVERSE(PIN_DESCRIPTION)	//изменение состояния выхода на противоположное
