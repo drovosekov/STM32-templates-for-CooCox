@@ -38,8 +38,9 @@ void delay_ms(u32 ms);
 //		(SPEED_2MHZ|SPEED_10MHZ|SPEED_50MHZ)рабочая частота конфигурируемого вывода МК
 //пример вызова:
 //=================================================================================================================
-//#define AIR_FLOW_PWM	B, 13, HIGH, GENERAL_OUTPUT_PUSH_PULL, SPEED_10MHZ 
-//PIN_CONFIGURATION(AIR_FLOW_PWM);	
+//#define GREEN_LED	B, 13, HIGH, GENERAL_OUTPUT_PUSH_PULL, SPEED_10MHZ  //задаем описание для вывода
+//PIN_CONFIGURATION(GREEN_LED);			//конфигурируем вывод МК 
+//PIN_ON(GREEN_LED);					//устанавливаем логич. 1 на выводе МК
 
 #define PIN_ON(PIN_DESCRIPTION) GPIO_PIN_ON(PIN_DESCRIPTION)			//включить выход
 #define PIN_OFF(PIN_DESCRIPTION) GPIO_PIN_OFF(PIN_DESCRIPTION)			//отключить выход
